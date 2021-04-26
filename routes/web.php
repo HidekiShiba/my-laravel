@@ -21,7 +21,9 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::resource('posts', 'PostController', ['only' => ['index','show', 'create', 'store']]);
-Route::get('posts/edit/{id}', 'PostController@edit');
-Route::post('posts/edit', 'PostController@update');
-Route::post('posts/delete/{id}', 'PostController@destroy');
+Route::resource('posts', 'PostController', ['only' => ['index','show', 'create', 'store']]); // Route::resource はあまり使わない様にする。
+
+// /posts は Route::group(['prefix' => 'posts', 'as' => 'post.']) で囲む;
+Route::get('posts/edit/{id}', 'PostController@edit'); // 各ルーティングに ->name('edit'); など、付ける。
+Route::post('posts/edit', 'PostController@update'); // 編集は Route::put() を使う
+Route::post('posts/delete/{id}', 'PostController@destroy'); // 削除は Route::delete() を使う

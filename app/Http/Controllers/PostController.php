@@ -19,7 +19,6 @@ class PostController extends Controller
     {
         $posts = Post::all();
         return view('posts.index', ['posts' => $posts]);
-
     }
 
     /**
@@ -59,10 +58,10 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        $usr_id = $post->user_id;
-        $user = DB::table('users')->where('id', $usr_id)->first();
+        $user_id = $post->user_id;
+        $user = DB::table('users')->where('id', $user_id)->first();
 
-        return view('posts.detail',['post' => $post,'user' => $user]);
+        return view('posts.detail',['post' => $post, 'user' => $user]);
     }
 
     /**

@@ -17,7 +17,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::all();
+        $posts = Post::all(); // paginate を使ってみる。
         return view('posts.index', ['posts' => $posts]);
     }
 
@@ -47,7 +47,7 @@ class PostController extends Controller
 
         $post->save();
 
-       return redirect()->to('/posts');
+       return redirect()->to('/posts'); // redirect()->route('post.index') へ変更
     }
 
     /**
@@ -58,6 +58,8 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
+        // 新しく追加した relations メソッドで
+        // $user = $post->user; でユーザーを取得出来る。
         $user_id = $post->user_id;
         $user = DB::table('users')->where('id', $user_id)->first();
 
@@ -70,10 +72,10 @@ class PostController extends Controller
      * @param  \App\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($id) // $id　ではなく、Post $post へ変更。
     {
         // $usr_id = $post->user_id;
-        $post = \App\Post::findOrFail($id);
+        $post = \App\Post::findOrFail($id); //削除する
 
         return view('posts.edit',['post' => $post]);
         // return view('posts.edit');
@@ -89,6 +91,7 @@ class PostController extends Controller
      */
     public function update(Request $request)
     {
+        // edit　メソッドと同じく Post $post で自動的に取得する。
         $id = $request->post_id;
         //レコードを検索
         $post = Post::findOrFail($id);

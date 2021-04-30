@@ -36,4 +36,6 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    // relations メソッドを入れる。https://readouble.com/laravel/7.x/ja/eloquent-relationships.html
 }

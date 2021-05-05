@@ -31,8 +31,12 @@ Route::group(['prefix' => 'posts', 'as' => 'post.'], function () {
     Route::get('/', 'PostController@index')->name('index');
     Route::post('/', 'PostController@store')->name('store');
     Route::get('/create', 'PostController@create')->name('create');
-    Route::get('/{id}', 'PostController@show')->name('show');
-    Route::get('/edit/{id}', 'PostController@edit')->name('edit');
-    Route::put('/{id}', 'PostController@update')->name('update');
-    Route::delete('/{id}', 'PostController@destroy')->name('destroy');
+
+
+    Route::group(['prefix' => '{post}'], function () {
+        Route::get('/', 'PostController@show')->name('show');
+        Route::put('/', 'PostController@update')->name('update');
+        Route::delete('/', 'PostController@destroy')->name('destroy');
+        Route::get('/edit', 'PostController@edit')->name('edit');
+    });
 });

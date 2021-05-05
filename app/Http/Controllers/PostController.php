@@ -17,7 +17,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::all();
+        $posts = DB::table('posts')->paginate(15);
         return view('posts.index', ['posts' => $posts]);
     }
 
@@ -47,7 +47,7 @@ class PostController extends Controller
 
         $post->save();
 
-       return redirect()->to('/posts');
+       return redirect()->route('post.index');
     }
 
     /**
@@ -58,6 +58,8 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
+        // relationsで修正
+        $user = $post->user;
         $user_id = $post->user_id;
         $user = DB::table('users')->where('id', $user_id)->first();
 
@@ -70,10 +72,10 @@ class PostController extends Controller
      * @param  \App\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Post $post)
     {
         // $usr_id = $post->user_id;
-        $post = \App\Post::findOrFail($id);
+        // $post = \App\Post::findOrFail($id);
 
         return view('posts.edit',['post' => $post]);
         // return view('posts.edit');

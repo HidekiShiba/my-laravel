@@ -17,6 +17,7 @@ class PostController extends Controller
      */
     public function index()
     {
+        // DB::table('posts') は、Post class と大体同じ。Post::paginate(15); でお願いいたします。
         $posts = DB::table('posts')->paginate(15);
         return view('posts.index', ['posts' => $posts]);
     }
@@ -60,7 +61,7 @@ class PostController extends Controller
     {
         // relationsで修正
         $user = $post->user;
-        $user_id = $post->user_id;
+        $user_id = $post->user_id; // $user = $post->user で定義されているので、#64~#65行目は削除。
         $user = DB::table('users')->where('id', $user_id)->first();
 
         return view('posts.detail',['post' => $post, 'user' => $user]);

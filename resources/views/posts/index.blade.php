@@ -17,7 +17,7 @@
                         <td>{{ $post->id }}</td>
                         <td>{{ $post->body }}</td>
                         <td>
-                            <a href="{{ url('posts/'.$post->id) }}" class="btn btn-success">詳細</a>
+                            <a href="{{ url('posts/'.$post->id) }}" class="btn btn-success">詳細</a> {{-- <a href="{{ route('post.edit', $post) }}" method="POST"> --}}
                         @auth
                             <form action="/posts/delete/{{$post->id}}" method="POST">
                                 {{ csrf_field() }}
@@ -33,3 +33,4 @@
     </div>
 </div>
 @endsection
+

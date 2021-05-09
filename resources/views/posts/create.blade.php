@@ -5,8 +5,8 @@
     <div class="row">
         <!-- メイン -->
         <div class="col-10 col-md-6 offset-1 offset-md-3">
-            <form action="/posts" method="post">
-                {{ csrf_field() }}
+            <form action="{{ route('post.store') }}" method="POST">
+                @csrf
                 <div class="form-group">
                     <label for="exampleFormControlTextarea1">新規投稿</label>
                     <textarea class="form-control" name="body" id="exampleFormControlTextarea1" rows="3"></textarea>

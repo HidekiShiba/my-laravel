@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CreatePostRequest;
 use App\Post;
 use Illuminate\Http\Request;
 
@@ -17,7 +18,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = DB::table('posts')->paginate(15);
+        $posts = Post::paginate(15);
         return view('posts.index', ['posts' => $posts]);
     }
 
@@ -37,15 +38,20 @@ class PostController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreatePostRequest $request)
     {
-        $id = Auth::id();
-        //インスタンス作成
-        $post = new Post();
-        $post->body = $request->body;
-        $post->user_id = $id;
+        $user = $this->guard()->user();
+        $post = Post::create([
+            'body' => $request->body,
+            'user_id' => $user->id,
+        ]);
+        // $id = Auth::id();
+        // //インスタンス作成
+        // $post = new Post();
+        // $post->body = $request->body;
+        // $post->user_id = $id;
 
-        $post->save();
+        // $post->save();
 
        return redirect()->route('post.index');
     }
@@ -60,8 +66,8 @@ class PostController extends Controller
     {
         // relationsで修正
         $user = $post->user;
-        $user_id = $post->user_id;
-        $user = DB::table('users')->where('id', $user_id)->first();
+        // $user_id = $post->user_id;
+        // $user = DB::table('users')->where('id', $user_id)->first();
 
         return view('posts.detail',['post' => $post, 'user' => $user]);
     }

@@ -17,13 +17,15 @@
                         <td>{{ $post->id }}</td>
                         <td>{{ $post->body }}</td>
                         <td>
-                            <a href="{{ url('posts/'.$post->id) }}" class="btn btn-success">詳細</a>
-                        @auth
-                            <form action="/posts/delete/{{$post->id}}" method="POST">
-                                {{ csrf_field() }}
+                            {{-- <a href="{{ url('posts/'.$post->id) }}" class="btn btn-success">詳細</a> --}}
+                            {{-- <a href="{{ route('post.edit', $post) }}" method="POST"> --}}
+                            <a href="{{ route('post.show', $post) }}" class="btn btn-success">詳細</a>
+                        @if($post->user_id == auth()->user()->id)
+                            <form action="{{ route('post.destroy', $post) }}" method="DELETE">
+                                @csrf
                                 <input type="submit" value="削除" class="btn btn-danger post_del_btn">
                             </form>
-                        @endauth
+                        @endif
                         </td>
                     </tr>
                     @endforeach

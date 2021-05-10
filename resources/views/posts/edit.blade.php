@@ -6,8 +6,8 @@
         <!-- メイン -->
         <div class="col-10 col-md-6 offset-1 offset-md-3">
             <div class="card">
-                <form action="{{ route('post.update', $post) }}" method="PUT">
-                    @csrf
+                <form action="{{ route('post.update', $post) }}" method="POST">
+                    @csrf @method('PUT')
                     <div class="card-body">
                         <p class="card-text">
                         <textarea class="form-control" name="body" id="exampleFormControlTextarea1" rows="3">{{$post->body}}</textarea>

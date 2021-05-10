@@ -21,8 +21,8 @@
                             {{-- <a href="{{ route('post.edit', $post) }}" method="POST"> --}}
                             <a href="{{ route('post.show', $post) }}" class="btn btn-success">詳細</a>
                         @if($post->user_id == auth()->user()->id)
-                            <form action="{{ route('post.destroy', $post) }}" method="DELETE">
-                                @csrf
+                            <form action="{{ route('post.destroy', $post) }}" method="POST">
+                                @csrf @method('DELETE')
                                 <input type="submit" value="削除" class="btn btn-danger post_del_btn">
                             </form>
                         @endif

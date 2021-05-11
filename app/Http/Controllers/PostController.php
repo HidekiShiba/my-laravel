@@ -95,15 +95,12 @@ class PostController extends Controller
      * @param  \App\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(Request $request, Post $post) // Post $post の引用追加されていなかった。
     {
-        $id = $request->post_id;
-        //レコードを検索
-        $post = Post::findOrFail($id);
         $post->body = $request->body;
         //保存（更新）
         $post->save();
-        return redirect()->to('/posts');
+        return redirect()->route('post.index'); // to()　を避けて route() でリダイレクト先を定義する。
     }
 
     /**
@@ -119,5 +116,15 @@ class PostController extends Controller
         $post->delete();
 
         return redirect()->to('/posts');
+    }
+
+    /**
+     * Get the guard to be used during authentication.
+     *
+     * @return \Illuminate\Contracts\Auth\StatefulGuard
+     */
+    protected function guard()
+    {
+        return Auth::guard();
     }
 }

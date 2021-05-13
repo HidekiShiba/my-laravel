@@ -40,10 +40,14 @@
                         <a href="/posts/create" class="btn btn-outline-primary">新規投稿</a>
                         @endauth
                     </ul>
-
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
                         <!-- Authentication Links -->
+                        <ul class="navbar-nav mr-auto">
+                            @auth
+                            <a href="/users" class="btn btn-primary">ユーザ一覧</a>
+                            @endauth
+                        </ul>
                         @guest
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('login') }}">{{ __('ログイン') }}</a>

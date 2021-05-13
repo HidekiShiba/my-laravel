@@ -17,8 +17,6 @@
                         <td>{{ $post->id }}</td>
                         <td>{{ $post->body }}</td>
                         <td>
-                            {{-- <a href="{{ url('posts/'.$post->id) }}" class="btn btn-success">詳細</a> --}}
-                            {{-- <a href="{{ route('post.edit', $post) }}" method="POST"> --}}
                             <a href="{{ route('post.show', $post) }}" class="btn btn-success">詳細</a>
                         @if($post->user_id == auth()->user()->id)
                             <form action="{{ route('post.destroy', $post) }}" method="POST">

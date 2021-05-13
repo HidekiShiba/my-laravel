@@ -21,12 +21,6 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-// Route::get('posts/edit/{id}', 'PostController@edit');
-// /posts は Route::group(['prefix' => 'posts', 'as' => 'post.']) で囲む;
-// 各ルーティングに ->name('edit'); など、付ける。
-// 編集は Route::put() を使う
-// 削除は Route::delete() を使う
-
 Route::group(['prefix' => 'posts', 'as' => 'post.'], function () {
     Route::get('/', 'PostController@index')->name('index');
     Route::post('/', 'PostController@store')->name('store');
@@ -38,5 +32,15 @@ Route::group(['prefix' => 'posts', 'as' => 'post.'], function () {
         Route::put('/', 'PostController@update')->name('update');
         Route::delete('/', 'PostController@destroy')->name('destroy');
         Route::get('/edit', 'PostController@edit')->name('edit');
+    });
+});
+
+Route::group(['prefix' => 'users', 'as' => 'user.'], function () {
+    Route::get('/', 'UserController@index')->name('index');
+
+    Route::group(['prefix' => '{user}'], function () {
+        Route::get('/', 'UserController@show')->name('show');
+        Route::put('/', 'UserController@update')->name('update');
+        Route::get('/edit', 'UserController@edit')->name('edit');
     });
 });
